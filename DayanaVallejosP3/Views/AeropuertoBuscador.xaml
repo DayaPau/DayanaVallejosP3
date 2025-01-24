@@ -17,10 +17,10 @@
         <Label Text="Resultado:"
                FontAttributes="Bold"
                IsVisible="{Binding FoundAirport, Converter={StaticResource NullToVisibilityConverter}}" />
-        <Label Text="{Binding FoundAirport.Nombre}" />
-        <Label Text="{Binding FoundAirport.Pais}" />
-        <Label Text="{Binding FoundAirport.Latitud}" />
-        <Label Text="{Binding FoundAirport.Longitud}" />
+        <Label Text="{Binding FoundAirport.Name}" />
+        <Label Text="{Binding FoundAirport.Country}" />
+        <Label Text="{Binding FoundAirport.Latitude}" />
+        <Label Text="{Binding FoundAirport.Longitude}" />
         <Label Text="{Binding FoundAirport.Email}" />
 
         <Label Text="{Binding ErrorMessage}"

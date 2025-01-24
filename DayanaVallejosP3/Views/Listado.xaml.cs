@@ -7,7 +7,13 @@ namespace DayanaVallejosP3.Views
         public Listado()
         {
             InitializeComponent();
-            BindingContext = new ListadoViewModel();
+     
+        }
+
+        public Listado(ListadoViewModel viewModel)
+        {
+            InitializeComponent();
+            BindingContext = viewModel;
         }
     }
 }

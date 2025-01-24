@@ -7,9 +7,9 @@
 
     <TabBar>
         <ShellContent Title="Buscador" 
-                      ContentTemplate="{DataTemplate views:FirstView}" />
+                      ContentTemplate="{DataTemplate views:AeropuertoBuscador}" />
         <ShellContent Title="Listado" 
-                      ContentTemplate="{DataTemplate views:SecondView}" />
+                      ContentTemplate="{DataTemplate views:Listado}" />
     </TabBar>
 </Shell>
 

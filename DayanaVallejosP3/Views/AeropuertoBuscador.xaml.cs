@@ -7,7 +7,12 @@ namespace DayanaVallejosP3.Views
         public AeropuertoBuscador()
         {
             InitializeComponent();
-            BindingContext = new BusquedaViewModel();
+        }
+
+        public AeropuertoBuscador(BusquedaViewModel viewModel)
+        {
+            InitializeComponent();
+            BindingContext = viewModel;
         }
     }
 }
