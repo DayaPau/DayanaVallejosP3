@@ -7,7 +7,7 @@ namespace DayanaVallejosP3.Views
         public Listado()
         {
             InitializeComponent();
-
+            BindingContext = new ListadoViewModel(new Servicios.DatabaseService()); // Asegúrate de pasar la dependencia
         }
 
         public Listado(ListadoViewModel viewModel)
