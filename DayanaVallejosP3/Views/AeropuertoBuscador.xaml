@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:DayanaVallejosP3.ViewsModels"
              x:Class="DayanaVallejosP3.Views.AeropuertoBuscador"
              Title="Dayana Vallejos">
-    
+
     <ContentPage.BindingContext>
         <vm:BusquedaViewModel />
     </ContentPage.BindingContext>
@@ -17,15 +16,21 @@
         <Label Text="Resultado:"
                FontAttributes="Bold"
                IsVisible="{Binding FoundAirport, Converter={StaticResource NullToVisibilityConverter}}" />
-        <Label Text="{Binding FoundAirport.Name}" />
-        <Label Text="{Binding FoundAirport.Country}" />
-        <Label Text="{Binding FoundAirport.Latitude}" />
-        <Label Text="{Binding FoundAirport.Longitude}" />
-        <Label Text="{Binding FoundAirport.Email}" />
+        <Label Text="Name: {Binding FoundAirport.Name}" 
+               IsVisible="{Binding FoundAirport}" />
+        <Label Text="Country: {Binding FoundAirport.Country}" 
+               IsVisible="{Binding FoundAirport}" />
+        <Label Text="Latitude: {Binding FoundAirport.Latitude}" 
+               IsVisible="{Binding FoundAirport}" />
+        <Label Text="Longitude: {Binding FoundAirport.Longitude}" 
+               IsVisible="{Binding FoundAirport}" />
+        <Label Text="Email: {Binding FoundAirport.Email}" 
+               IsVisible="{Binding FoundAirport}" />
 
         <Label Text="{Binding ErrorMessage}"
                TextColor="Red"
                FontAttributes="Bold" />
     </VerticalStackLayout>
 </ContentPage>
+
 

@@ -21,6 +21,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<BusquedaViewModel>();
         builder.Services.AddSingleton<ListadoViewModel>();
 
+
+
         return builder.Build();
     }
 }

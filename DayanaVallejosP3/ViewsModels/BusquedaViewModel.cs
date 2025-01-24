@@ -1,68 +1,104 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Input;
 using DayanaVallejosP3.Servicios;
 using DayanaVallejosP3.Models;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace DayanaVallejosP3.ViewsModels
 {
-    public partial class BusquedaViewModel : ObservableObject
+    public class BusquedaViewModel : INotifyPropertyChanged
     {
-        private readonly AeropuertoService _service;
+        private readonly AeropuertoService _aeropuertoService;
+        private string _searchText;
+        private Aeropuerto _foundAirport;
 
-        [ObservableProperty]
-        private string searchQuery;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        [ObservableProperty]
-        private Aeropuerto foundAirport;
-
-        [ObservableProperty]
-        private string errorMessage;
-
-        public ICommand SearchCommand { get; }
-        public ICommand ClearCommand { get; }
-
-        public BusquedaViewModel(AeropuertoService service)
+        public BusquedaViewModel(AeropuertoService aeropuertoService)
         {
-            _service = service;
-
+            _aeropuertoService = aeropuertoService ?? throw new ArgumentNullException(nameof(aeropuertoService));
             SearchCommand = new AsyncRelayCommand(SearchAirportAsync);
             ClearCommand = new RelayCommand(ClearSearch);
         }
 
+       
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    OnPropertyChanged(nameof(SearchText));
+                }
+            }
+        }
+
+       
+        public Aeropuerto FoundAirport
+        {
+            get => _foundAirport;
+            set
+            {
+                if (_foundAirport != value)
+                {
+                    _foundAirport = value;
+                    OnPropertyChanged(nameof(FoundAirport));
+                }
+            }
+        }
+
+      
+        public ICommand SearchCommand { get; }
+        public ICommand ClearCommand { get; }
+
+        
         private async Task SearchAirportAsync()
         {
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                Console.WriteLine("Por favor, ingresa un país válido.");
+                return;
+            }
+
             try
             {
-                ErrorMessage = string.Empty;
-
-                if (string.IsNullOrWhiteSpace(SearchQuery))
+                var aeropuerto = await _aeropuertoService.SearchAirportAsync(SearchText);
+                if (aeropuerto != null)
                 {
-                    ErrorMessage = "Por favor, ingrese un país para buscar.";
-                    return;
+                    FoundAirport = aeropuerto;
+                    Console.WriteLine("Aeropuerto encontrado exitosamente.");
                 }
-
-                FoundAirport = await _service.SearchAirportAsync(SearchQuery);
-
-                if (FoundAirport == null)
+                else
                 {
-                    ErrorMessage = "No se encontró ningún aeropuerto.";
+                    Console.WriteLine("No se encontró ningún aeropuerto para el país ingresado.");
                 }
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Error al buscar el aeropuerto: {ex.Message}";
+                Console.WriteLine($"Error al buscar el aeropuerto: {ex.Message}");
             }
         }
 
+        
         private void ClearSearch()
         {
-            SearchQuery = string.Empty;
+            SearchText = string.Empty;
             FoundAirport = null;
-            ErrorMessage = string.Empty;
+        }
+
+        
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
+
+
+
+
 
 
