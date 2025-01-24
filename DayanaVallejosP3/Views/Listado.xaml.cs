@@ -7,7 +7,7 @@ namespace DayanaVallejosP3.Views
         public Listado()
         {
             InitializeComponent();
-     
+
         }
 
         public Listado(ListadoViewModel viewModel)

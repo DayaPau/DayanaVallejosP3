@@ -3,6 +3,7 @@
              xmlns:vm="clr-namespace:DayanaVallejosP3.ViewsModels"
              x:Class="DayanaVallejosP3.Views.Listado"
              Title="Dayana Vallejos">
+    
     <ContentPage.BindingContext>
         <vm:ListadoViewModel />
     </ContentPage.BindingContext>
@@ -29,7 +30,6 @@
         </ListView>
     </StackLayout>
 </ContentPage>
-
 
 
 

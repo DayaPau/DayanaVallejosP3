@@ -12,6 +12,10 @@ namespace DayanaVallejosP3.ViewsModels
         private readonly AeropuertoService _aeropuertoService;
         private string _searchText;
         private Aeropuerto _foundAirport;
+        public BusquedaViewModel()
+        {
+            _aeropuertoService = new AeropuertoService(); 
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

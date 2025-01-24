@@ -23,6 +23,9 @@ namespace DayanaVallejosP3.Servicios
             _database.CreateTable<Aeropuerto>();    
         }
 
+        public AeropuertoService()
+        {
+        }
 
         public async Task<Aeropuerto> SearchAirportAsync(string query)
         {
