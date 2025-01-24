@@ -4,7 +4,7 @@ using DayanaVallejosP3.Servicios;
 
 namespace DayanaVallejosP3.ViewsModels
 {
-    public class AirportListViewModel : BaseViewModel
+    public class ListadoViewModel : BaseViewModel
     {
         private readonly AeropuertoService _service;
 
@@ -15,7 +15,7 @@ namespace DayanaVallejosP3.ViewsModels
             set => SetProperty(ref _airports, value);
         }
 
-        public AirportListViewModel()
+        public ListadoViewModel()
         {
             _service = new AeropuertoService("ruta_base_datos_aqui"); // Asegúrate de pasar la ruta correcta
             LoadAirports();

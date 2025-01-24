@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DayanaVallejosP3.Servicios;
 
 namespace DayanaVallejosP3
 {
@@ -15,11 +15,17 @@ namespace DayanaVallejosP3
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-#if DEBUG
-    		builder.Logging.AddDebug();
-#endif
+            // Configurar la ruta de la base de datos SQLite
+            string databasePath = Path.Combine(FileSystem.AppDataDirectory, "airports.db");
+
+            // Registrar servicios
+            builder.Services.AddSingleton<AeropuertoService>(s => new AeropuertoService(databasePath));
+
+            // Registrar ViewModels
+            builder.Services.AddTransient<AirportListViewModel>();
 
             return builder.Build();
         }
     }
 }
+
