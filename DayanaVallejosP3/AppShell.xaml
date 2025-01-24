@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="DayanaVallejosP3.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:DayanaVallejosP3"
-    Shell.FlyoutBehavior="Disabled"
-    Title="DayanaVallejosP3">
-
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:DayanaVallejosP3.Views"
+       Title="Dayana Vallejos"
+       x:Class="DayanaVallejosP3.AppShell">
 
     <TabBar>
-        <ShellContent Title="Buscador" ContentTemplate="{DataTemplate local:AeropuertoBuscador}" />
-        <ShellContent Title="Listado" ContentTemplate="{DataTemplate local:Listado}" />
+        <ShellContent Title="Buscador" 
+                      ContentTemplate="{DataTemplate views:FirstView}" />
+        <ShellContent Title="Listado" 
+                      ContentTemplate="{DataTemplate views:SecondView}" />
     </TabBar>
-
-
 </Shell>
+

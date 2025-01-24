@@ -3,16 +3,16 @@ using DayanaVallejosP3.Servicios;
 using DayanaVallejosP3.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace DayanaVallejosP3.ViewModels
+namespace DayanaVallejosP3.ViewsModels
 {
-    public partial class AirportListViewModel : ObservableObject
+    public partial class ListadoViewModel : ObservableObject
     {
         private readonly AeropuertoService _service;
 
         [ObservableProperty]
         private ObservableCollection<Aeropuerto> airports;
 
-        public AirportListViewModel(AeropuertoService service)
+        public ListadoViewModel(AeropuertoService service)
         {
             _service = service;
             LoadAirports();
@@ -25,6 +25,3 @@ namespace DayanaVallejosP3.ViewModels
         }
     }
 }
-
-
-

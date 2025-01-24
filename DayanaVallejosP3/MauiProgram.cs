@@ -1,31 +1,28 @@
-﻿using DayanaVallejosP3.Servicios;
+﻿using DayanaVallejosP3;
+using DayanaVallejosP3.Views;
+using DayanaVallejosP3.ViewsModels;
 
-namespace DayanaVallejosP3
+public static class MauiProgram
 {
-    public static class MauiProgram
+    public static MauiApp CreateMauiApp()
     {
-        public static MauiApp CreateMauiApp()
-        {
-            var builder = MauiApp.CreateBuilder();
-            builder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            });
 
-            // Configurar la ruta de la base de datos SQLite
-            string databasePath = Path.Combine(FileSystem.AppDataDirectory, "airports.db");
+        
+        builder.Services.AddSingleton<AeropuertoBuscador>();
+        builder.Services.AddSingleton<Listado>();
+        builder.Services.AddSingleton<BusquedaViewModel>();
+        builder.Services.AddSingleton<ListadoViewModel>();
 
-            // Registrar servicios
-            builder.Services.AddSingleton<AeropuertoService>(s => new AeropuertoService(databasePath));
-
-            // Registrar ViewModels
-            builder.Services.AddTransient<AirportListViewModel>();
-
-            return builder.Build();
-        }
+        return builder.Build();
     }
 }
+
 
