@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using DayanaVallejosP3.Models;
+using DayanaVallejosP3.Servicios;
 
-namespace DayanaVallejosP3.ViewsModels
+namespace YourNamespace.ViewModels
 {
-    internal class ListadoViewModel
+    public class AirportListViewModel : BaseViewModel
     {
+        private readonly AirportService _service;
+
+        public ObservableCollection<Airport> Airports { get; set; }
+
+        public AirportListViewModel()
+        {
+            _service = new AirportService("");
+            Airports = new ObservableCollection<Airport>(_service.GetAllAirports());
+        }
     }
 }
+
