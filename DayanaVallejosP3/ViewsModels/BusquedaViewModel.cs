@@ -14,7 +14,7 @@ namespace DayanaVallejosP3.ViewsModels
         private Aeropuerto _foundAirport;
         public BusquedaViewModel()
         {
-            _aeropuertoService = new AeropuertoService(); 
+            _aeropuertoService = new AeropuertoService();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -26,7 +26,7 @@ namespace DayanaVallejosP3.ViewsModels
             ClearCommand = new RelayCommand(ClearSearch);
         }
 
-       
+
         public string SearchText
         {
             get => _searchText;
@@ -40,7 +40,7 @@ namespace DayanaVallejosP3.ViewsModels
             }
         }
 
-       
+
         public Aeropuerto FoundAirport
         {
             get => _foundAirport;
@@ -54,11 +54,11 @@ namespace DayanaVallejosP3.ViewsModels
             }
         }
 
-      
+
         public ICommand SearchCommand { get; }
         public ICommand ClearCommand { get; }
 
-        
+
         private async Task SearchAirportAsync()
         {
             if (string.IsNullOrWhiteSpace(SearchText))
@@ -86,21 +86,20 @@ namespace DayanaVallejosP3.ViewsModels
             }
         }
 
-        
+
         private void ClearSearch()
         {
             SearchText = string.Empty;
             FoundAirport = null;
         }
 
-        
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
-
 
 
 
