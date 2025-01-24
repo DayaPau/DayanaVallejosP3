@@ -1,12 +1,14 @@
-﻿namespace DayanaVallejosP3
+﻿using DayanaVallejosP3.Views;
+using DayanaVallejosP3.ViewsModels;
+
+namespace DayanaVallejosP3
 {
     public partial class App : Application
     {
-        public App()
+        public App(BusquedaViewModel searchPage)
         {
             InitializeComponent();
-
-            MainPage = new AppShell();
+            MainPage = new AppShell(searchPage);
         }
     }
 }
