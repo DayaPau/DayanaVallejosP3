@@ -3,34 +3,57 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:DayanaVallejosP3.ViewsModels"
              x:Class="DayanaVallejosP3.Views.AeropuertoBuscador"
-             Title="Dayana Vallejos">
+             BackgroundColor="#F8F8F8"
+             Padding="20">
 
     <ContentPage.BindingContext>
         <vm:BusquedaViewModel />
     </ContentPage.BindingContext>
 
-    <VerticalStackLayout Padding="20">
-        <Entry Placeholder="Buscar país" Text="{Binding SearchQuery}" />
-        <Button Text="Buscar" Command="{Binding SearchCommand}" />
-        <Button Text="Limpiar" Command="{Binding ClearCommand}" />
+    <VerticalStackLayout Spacing="15">
 
-        <Label Text="Resultado:"
+        <Label x:Name="dvallejos_labelTitle"
+               Text="Buscar Aeropuerto"
+               FontSize="24"
                FontAttributes="Bold"
-               IsVisible="{Binding FoundAirport, Converter={StaticResource NullToVisibilityConverter}}" />
-        <Label Text="Name: {Binding FoundAirport.Name}" 
-               IsVisible="{Binding FoundAirport}" />
-        <Label Text="Country: {Binding FoundAirport.Country}" 
-               IsVisible="{Binding FoundAirport}" />
-        <Label Text="Latitude: {Binding FoundAirport.Latitude}" 
-               IsVisible="{Binding FoundAirport}" />
-        <Label Text="Longitude: {Binding FoundAirport.Longitude}" 
-               IsVisible="{Binding FoundAirport}" />
-        <Label Text="Email: {Binding FoundAirport.Email}" 
-               IsVisible="{Binding FoundAirport}" />
+               HorizontalOptions="Center"
+               TextColor="#333333"
+               Margin="0,0,0,20"/>
 
-        <Label Text="{Binding ErrorMessage}"
+        <Entry x:Name="dvallejos_entrySearch"
+               Placeholder="Ingrese país"
+               Text="{Binding SearchText}"
+               FontSize="16"
+               BackgroundColor="Gray"/>
+
+        <Button x:Name="dvallejos_buttonSearch"
+                Text="Buscar"
+                Command="{Binding SearchCommand}"
+                BackgroundColor="#1E90FF"
+                TextColor="White"
+                CornerRadius="5"
+                Padding="10"
+                FontSize="16"
+                HorizontalOptions="FillAndExpand"
+                Margin="0,10"/>
+
+        <Button x:Name="dvallejos_buttonClear"
+                Text="Limpiar"
+                Command="{Binding ClearCommand}"
+                BackgroundColor="#FF6347"
+                TextColor="White"
+                CornerRadius="5"
+                Padding="10"
+                FontSize="16"
+                HorizontalOptions="FillAndExpand"/>
+
+        <Label x:Name="dvallejos_labelMessage"
+               Text="{Binding Message}"
                TextColor="Red"
-               FontAttributes="Bold" />
+               FontSize="16"
+               HorizontalOptions="Center"
+               IsVisible="{Binding IsMessageVisible}" />
+
     </VerticalStackLayout>
 </ContentPage>
 
