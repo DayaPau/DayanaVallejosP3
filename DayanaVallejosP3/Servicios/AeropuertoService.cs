@@ -1,8 +1,7 @@
-﻿using SQLite;
+﻿using DayanaVallejosP3.Models;
+using SQLite;
 using System.Net.Http.Json;
-using DayanaVallejosP3.Models
-
-namespace AeropuertoService.Servicios
+namespace AeropuertoService.Models
 {
     public class AeropuertoService
     {
@@ -22,7 +21,7 @@ namespace AeropuertoService.Servicios
 
             if (response.IsSuccessStatusCode)
             {
-                var data = await response.Content.ReadFromJsonAsync<List<Airport>>();
+                var data = await response.Content.ReadFromJsonAsync<List<Aeropuerto>>();
                 return data?.FirstOrDefault();
             }
 

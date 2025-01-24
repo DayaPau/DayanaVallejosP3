@@ -16,7 +16,7 @@ namespace DayanaVallejosP3.ViewModels
 
         public BusquedaViewModel()
         {
-            _service = new AirportService("database_path_here");
+            _service = new AeropuertoService("database_path_here");
             SearchCommand = new Command(async () => await SearchAirport());
             ClearCommand = new Command(() => Country = string.Empty);
         }

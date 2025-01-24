@@ -2,18 +2,18 @@
 using DayanaVallejosP3.Models;
 using DayanaVallejosP3.Servicios;
 
-namespace YourNamespace.ViewModels
+namespace DayanaVallejosP3.ViewModels
 {
     public class AirportListViewModel : BaseViewModel
     {
-        private readonly AirportService _service;
+        private readonly AeropuertoService _service;
 
-        public ObservableCollection<Airport> Airports { get; set; }
+        public ObservableCollection<Aeropuerto> Airports { get; set; }
 
         public AirportListViewModel()
         {
-            _service = new AirportService("");
-            Airports = new ObservableCollection<Airport>(_service.GetAllAirports());
+            _service = new AeropuertoService("https://freetestapi.com/api/v1/airports?search");
+            Airports = new ObservableCollection<Aeropuerto>(_service.GetAllAirports());
         }
     }
 }

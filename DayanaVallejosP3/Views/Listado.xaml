@@ -1,0 +1,21 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:DayanaVallejosP3.ViewModels"
+             x:Class="DayanaVallejosP3.Views.Listado"
+             Title="Tu Nombre y Apellido">
+
+    <ContentPage.BindingContext>
+        <vm:ListadoViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="20">
+        <ListView ItemsSource="{Binding Airports}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Name}" 
+                              Detail="{Binding Country}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>
