@@ -1,9 +1,13 @@
-namespace DayanaVallejosP3.Views;
+using DayanaVallejosP3.ViewsModels;
 
-public partial class AeropuertoBuscador : ContentView
+namespace DayanaVallejosP3.Views
 {
-	public AeropuertoBuscador()
-	{
-		InitializeComponent();
-	}
+    public partial class AeropuertoBuscador : ContentPage
+    {
+        public AeropuertoBuscador()
+        {
+            InitializeComponent();
+            BindingContext = new BusquedaViewModel();
+        }
+    }
 }

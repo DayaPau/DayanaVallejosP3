@@ -1,9 +1,13 @@
-namespace DayanaVallejosP3.Views;
+using DayanaVallejosP3.ViewsModels;
 
-public partial class Listado : ContentPage
+namespace DayanaVallejosP3.Views
 {
-	public Listado()
-	{
-		InitializeComponent();
-	}
+    public partial class Listado : ContentPage
+    {
+        public Listado()
+        {
+            InitializeComponent();
+            BindingContext = new ListadoViewModel();
+        }
+    }
 }
