@@ -2,14 +2,17 @@
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:views="clr-namespace:DayanaVallejosP3.Views"
-       Title="Dayana Vallejos"
        x:Class="DayanaVallejosP3.AppShell">
 
-    <TabBar>
-        <ShellContent Title="Buscador" 
-                      ContentTemplate="{DataTemplate views:AeropuertoBuscador}" />
-        <ShellContent Title="Listado" 
-                      ContentTemplate="{DataTemplate views:Listado}" />
-    </TabBar>
+    <!-- Definir rutas para las vistas -->
+    <ShellContent Title="Búsqueda" 
+                  ContentTemplate="{DataTemplate views:AeropuertoBuscador}" 
+                  Route="BusquedaView" />
+
+    <ShellContent Title="Listado"
+                  ContentTemplate="{DataTemplate views:Listado}" 
+                  Route="ListadoView" />
+
 </Shell>
+
 
