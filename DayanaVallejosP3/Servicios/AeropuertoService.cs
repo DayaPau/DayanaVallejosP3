@@ -1,13 +1,15 @@
-﻿using DayanaVallejosP3.Models;
-using SQLite;
+﻿using SQLite;
 using System.Net.Http.Json;
-namespace AeropuertoService.Models
+using DayanaVallejosP3.Models;
+
+
+namespace DayanaVallejosP3.Servicios
 {
-    public class AeropuertoService
+    public class AirportService
     {
         private readonly SQLiteConnection _database;
 
-        public AeropuertoService(string dbPath)
+        public AirportService(string dbPath)
         {
             _database = new SQLiteConnection(dbPath);
             _database.CreateTable<Aeropuerto>();
@@ -21,7 +23,7 @@ namespace AeropuertoService.Models
 
             if (response.IsSuccessStatusCode)
             {
-                var data = await response.Content.ReadFromJsonAsync<List<Aeropuerto>>();
+                var data = await response.Content.ReadFromJsonAsync<List<Airport>>();
                 return data?.FirstOrDefault();
             }
 
@@ -37,6 +39,5 @@ namespace AeropuertoService.Models
         {
             return _database.Table<Aeropuerto>().ToList();
         }
-    }
+    }   
 }
-

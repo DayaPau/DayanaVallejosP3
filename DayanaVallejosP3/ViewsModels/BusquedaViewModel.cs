@@ -2,7 +2,7 @@
 using DayanaVallejosP3.Models;
 using DayanaVallejosP3.Servicios;
 
-namespace DayanaVallejosP3.ViewModels
+namespace DayanaVallejosP3.ViewsModels
 {
     public class BusquedaViewModel : BaseViewModel
     {

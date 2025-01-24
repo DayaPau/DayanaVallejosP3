@@ -12,4 +12,10 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
+    <TabBar>
+        <ShellContent Title="Buscador" ContentTemplate="{DataTemplate local:AeropuertoBuscador}" />
+        <ShellContent Title="Listado" ContentTemplate="{DataTemplate local:Listado}" />
+    </TabBar>
+
+
 </Shell>

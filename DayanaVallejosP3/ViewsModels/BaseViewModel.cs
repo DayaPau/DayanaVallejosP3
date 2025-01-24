@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace DayanaVallejosP3.ViewModels
+namespace DayanaVallejosP3.ViewsModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
