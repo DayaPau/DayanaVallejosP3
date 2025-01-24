@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace YourNamespace.Models
+namespace DayanaVallejosP3.Models
 {
     public class Aeropuerto
     {
