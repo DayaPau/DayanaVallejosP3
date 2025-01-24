@@ -1,42 +1,68 @@
-﻿using System.Windows.Input;
-using DayanaVallejosP3.Models;
+﻿using System;
+using System.Windows.Input;
 using DayanaVallejosP3.Servicios;
+using DayanaVallejosP3.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace DayanaVallejosP3.ViewsModels
 {
-    public class BusquedaViewModel : BaseViewModel
+    public partial class BusquedaViewModel : ObservableObject
     {
         private readonly AeropuertoService _service;
-        public string Country { get; set; }
-        public string Message { get; set; }
-        public bool IsError { get; set; }
+
+        [ObservableProperty]
+        private string searchQuery;
+
+        [ObservableProperty]
+        private Aeropuerto foundAirport;
+
+        [ObservableProperty]
+        private string errorMessage;
 
         public ICommand SearchCommand { get; }
         public ICommand ClearCommand { get; }
 
-        public BusquedaViewModel()
+        public BusquedaViewModel(AeropuertoService service)
         {
-            _service = new AeropuertoService("string databasePath = Path.Combine(FileSystem.AppDataDirectory, \"airports.db\");\r\n");
-            SearchCommand = new Command(async () => await SearchAirport());
-            ClearCommand = new Command(() => Country = string.Empty);
+            _service = service;
+
+            SearchCommand = new AsyncRelayCommand(SearchAirportAsync);
+            ClearCommand = new RelayCommand(ClearSearch);
         }
 
-        private async Task SearchAirport()
+        private async Task SearchAirportAsync()
         {
-            var airport = await _service.SearchAirportAsync(Country);
-            if (airport != null)
+            try
             {
-                airport.SCordova = "DVallejos"; 
-                _service.SaveAirport(airport);
-                Message = "¡Aeropuerto encontrado y guardado!";
-                IsError = false;
+                ErrorMessage = string.Empty;
+
+                if (string.IsNullOrWhiteSpace(SearchQuery))
+                {
+                    ErrorMessage = "Por favor, ingrese un país para buscar.";
+                    return;
+                }
+
+                FoundAirport = await _service.SearchAirportAsync(SearchQuery);
+
+                if (FoundAirport == null)
+                {
+                    ErrorMessage = "No se encontró ningún aeropuerto.";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Message = "No se encontró ningún aeropuerto.";
-                IsError = true;
+                ErrorMessage = $"Error al buscar el aeropuerto: {ex.Message}";
             }
+        }
+
+        private void ClearSearch()
+        {
+            SearchQuery = string.Empty;
+            FoundAirport = null;
+            ErrorMessage = string.Empty;
         }
     }
 }
+
 

@@ -58,7 +58,7 @@ namespace DayanaVallejosP3.Servicios
                     Latitude = airport.latitude,
                     Longitude = airport.longitude,
                     Email = airport.email,
-                    DVallejos = "SCordova" 
+                    DVallejos = "DVallejos" 
                 };
 
                 
@@ -78,7 +78,6 @@ namespace DayanaVallejosP3.Servicios
         {
             try
             {
-                // Evitar duplicados basados en el nombre
                 var existing = _database.Table<Aeropuerto>().FirstOrDefault(a => a.Name== aeropuerto.Name);
 
                 if (existing == null)

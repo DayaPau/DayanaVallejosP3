@@ -1,32 +1,30 @@
 ﻿using System.Collections.ObjectModel;
-using DayanaVallejosP3.Models;
 using DayanaVallejosP3.Servicios;
+using DayanaVallejosP3.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace DayanaVallejosP3.ViewsModels
+namespace DayanaVallejosP3.ViewModels
 {
-    public class ListadoViewModel : BaseViewModel
+    public partial class AirportListViewModel : ObservableObject
     {
         private readonly AeropuertoService _service;
 
-        private ObservableCollection<Aeropuerto> _airports;
-        public ObservableCollection<Aeropuerto> Airports
-        {
-            get => _airports;
-            set => SetProperty(ref _airports, value);
-        }
+        [ObservableProperty]
+        private ObservableCollection<Aeropuerto> airports;
 
-        public ListadoViewModel()
+        public AirportListViewModel(AeropuertoService service)
         {
-            _service = new AeropuertoService("ruta_base_datos_aqui"); // Asegúrate de pasar la ruta correcta
+            _service = service;
             LoadAirports();
         }
 
         private void LoadAirports()
         {
             var airportList = _service.GetAllAirports();
-            Airports = new ObservableCollection<Aeropuerto>(airportList);
+            airports = new ObservableCollection<Aeropuerto>(airportList);
         }
     }
 }
+
 
 
