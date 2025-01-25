@@ -1,35 +1,56 @@
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:DayanaVallejosP3.ViewsModels"
-             x:Class="DayanaVallejosP3.Views.Listado"
-             Title="Dayana Vallejos">
-    
+<?xml version='1.0' encoding='utf-8' ?>
+<ContentPage xmlns='http://schemas.microsoft.com/dotnet/2021/maui'
+             xmlns:x='http://schemas.microsoft.com/winfx/2009/xaml'
+             xmlns:vm='clr-namespace:DayanaVallejosP3.ViewsModels'
+             x:Class='DayanaVallejosP3.Views.Listado'
+             Title='Listado Aeropuertos'
+             BackgroundColor='#F0F0F0'>
+
     <ContentPage.BindingContext>
         <vm:ListadoViewModel />
     </ContentPage.BindingContext>
 
-    <StackLayout Padding="20">
-        <Label Text="Listado de Aeropuertos"
-               FontSize="24"
-               HorizontalOptions="Center"
-               VerticalOptions="Start"
-               Margin="0,10,0,20" />
+    <ListView ItemsSource='{Binding Aeropuertos}' 
+              SeparatorVisibility='Default'
+              BackgroundColor='#FFFFFF'
+              Margin='10'>
 
-        <ListView ItemsSource="{Binding Airports}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Padding="10">
-                            <Label Text="{Binding FormattedInfo}" 
-                                   FontSize="16" 
-                                   LineBreakMode="WordWrap" />
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Padding='15' Margin='10' BackgroundColor='#FFFFFF'>
+                        <Label Text='{Binding Name}' 
+                               FontSize='22' 
+                               FontAttributes='Bold' 
+                               TextColor='#333333' 
+                               HorizontalOptions='Center' 
+                               x:Name='dvallejos_label1'/>
+
+                        <StackLayout Padding='10'>
+                            <StackLayout Orientation='Horizontal' Padding='5'>
+                                <Label Text='País:' FontAttributes='Bold' FontSize='14' TextColor='#555555' x:Name='dvallejos_label2'/>
+                                <Label Text='{Binding Country}' FontSize='14' TextColor='#1E90FF' x:Name='dvallejos_label3'/>
+                            </StackLayout>
+
+                            <StackLayout Orientation='Horizontal' Padding='5'>
+                                <Label Text='Latitud:' FontAttributes='Bold' FontSize='14' TextColor='#555555' x:Name='dvallejos_label4'/>
+                                <Label Text='{Binding Latitude}' FontSize='14' TextColor='#228B22' x:Name='dvallejos_label5'/>
+                            </StackLayout>
+
+                            <StackLayout Orientation='Horizontal' Padding='5'>
+                                <Label Text='Longitud:' FontAttributes='Bold' FontSize='14' TextColor='#555555' x:Name='dvallejos_label6'/>
+                                <Label Text='{Binding Longitude}' FontSize='14' TextColor='#FF4500' x:Name='dvallejos_label7'/>
+                            </StackLayout>
+
+                            <StackLayout Orientation='Horizontal' Padding='5'>
+                                <Label Text='Correo:' FontAttributes='Bold' FontSize='14' TextColor='#555555' x:Name='dvallejos_label8'/>
+                                <Label Text='{Binding Email}' FontSize='14' TextColor='#8A2BE2' x:Name='dvallejos_label9'/>
+                            </StackLayout>
                         </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackLayout>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </ContentPage>
-
-
 

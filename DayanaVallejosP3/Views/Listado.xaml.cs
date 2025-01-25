@@ -1,19 +1,24 @@
+using Microsoft.Maui.Controls;
 using DayanaVallejosP3.ViewsModels;
 
 namespace DayanaVallejosP3.Views
 {
     public partial class Listado : ContentPage
     {
-        public Listado()
-        {
-            InitializeComponent();
-            BindingContext = new ListadoViewModel(new Servicios.DatabaseService()); // Asegúrate de pasar la dependencia
-        }
+        private readonly ListadoViewModel _viewModel;
 
         public Listado(ListadoViewModel viewModel)
         {
             InitializeComponent();
-            BindingContext = viewModel;
+            _viewModel = viewModel;
+            BindingContext = _viewModel;
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await _viewModel.LoadAeropuertosAsync(); 
         }
     }
 }
+
