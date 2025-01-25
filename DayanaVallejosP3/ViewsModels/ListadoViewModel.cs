@@ -1,52 +1,38 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using DayanaVallejosP3.Models;
 using DayanaVallejosP3.Servicios;
+using DayanaVallejosP3.ViewModels;
 
 namespace DayanaVallejosP3.ViewsModels
 {
-    [ObservableObject]
-    public partial class ListadoViewModel
+    public partial class ListadoViewModel : BaseViewModel
     {
         private readonly DatabaseService _databaseService;
+        private ObservableCollection<Aeropuerto> _aeropuertos;
 
-        public ListadoViewModel() { }
-
-        public ListadoViewModel(DatabaseService databaseService)
+        public ObservableCollection<Aeropuerto> Aeropuertos
         {
-            _databaseService = databaseService ?? throw new ArgumentNullException(nameof(databaseService));
-            Airports = new ObservableCollection<Aeropuerto>();
+            get => _aeropuertos;
+            set => SetProperty(ref _aeropuertos, value);
         }
 
-        [ObservableProperty]
-        private ObservableCollection<Aeropuerto> airports;
-
-        [RelayCommand]
-        private async Task LoadAirportsAsync()
+        public ListadoViewModel()
         {
-            try
+            _databaseService = new DatabaseService(); // Asegúrate de que el servicio de base de datos esté configurado correctamente.
+            Aeropuertos = new ObservableCollection<Aeropuerto>();
+        }
+
+        // Método que carga los aeropuertos desde la base de datos.
+        public async Task LoadAeropuertosAsync()
+        {
+            var aeropuertosList = await _databaseService.GetAeropuertosAsync(); // Llama al servicio de base de datos para obtener los aeropuertos.
+
+            // Limpiar la lista y agregar los nuevos aeropuertos.
+            Aeropuertos.Clear();
+            foreach (var aeropuerto in aeropuertosList)
             {
-                var airportsFromDb = await _databaseService.GetAirportsAsync();
-                if (airportsFromDb != null && airportsFromDb.Any())
-                {
-                    Airports.Clear();
-                    foreach (var airport in airportsFromDb)
-                    {
-                        Airports.Add(airport);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No se encontraron aeropuertos en la base de datos.");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al cargar los aeropuertos: {ex.Message}");
+                Aeropuertos.Add(aeropuerto);
             }
         }
     }

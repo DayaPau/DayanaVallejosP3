@@ -1,105 +1,52 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows.Input;
-using DayanaVallejosP3.Servicios;
+﻿using DayanaVallejosP3.Servicios;
 using DayanaVallejosP3.Models;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
 
 namespace DayanaVallejosP3.ViewsModels
 {
-    public class BusquedaViewModel : INotifyPropertyChanged
+    public class BusquedaViewModel : BindableObject
     {
-        private readonly AeropuertoService _aeropuertoService;
-        private string _searchText;
-        private Aeropuerto _foundAirport;
+        private readonly IDatabaseService _databaseService;
+        private readonly AeropuertoService _apiService;
+        private ObservableCollection<Aeropuerto> _aeropuertos;
+
+        public ObservableCollection<Aeropuerto> Aeropuertos
+        {
+            get => _aeropuertos;
+            set
+            {
+                _aeropuertos = value;
+                OnPropertyChanged();
+            }
+        }
+
         public BusquedaViewModel()
         {
-            _aeropuertoService = new AeropuertoService();
+            _databaseService = DependencyService.Get<IDatabaseService>();
+            _apiService = new AeropuertoService();
+            Aeropuertos = new ObservableCollection<Aeropuerto>();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public BusquedaViewModel(AeropuertoService aeropuertoService)
+        public async Task LoadAeropuertosAsync(string country)
         {
-            _aeropuertoService = aeropuertoService ?? throw new ArgumentNullException(nameof(aeropuertoService));
-            SearchCommand = new AsyncRelayCommand(SearchAirportAsync);
-            ClearCommand = new RelayCommand(ClearSearch);
-        }
+            var aeropuertos = await _databaseService.GetAeropuertosAsync();
+            Aeropuertos.Clear();
 
-
-        public string SearchText
-        {
-            get => _searchText;
-            set
+            foreach (var aeropuerto in aeropuertos)
             {
-                if (_searchText != value)
-                {
-                    _searchText = value;
-                    OnPropertyChanged(nameof(SearchText));
-                }
-            }
-        }
-
-
-        public Aeropuerto FoundAirport
-        {
-            get => _foundAirport;
-            set
-            {
-                if (_foundAirport != value)
-                {
-                    _foundAirport = value;
-                    OnPropertyChanged(nameof(FoundAirport));
-                }
-            }
-        }
-
-
-        public ICommand SearchCommand { get; }
-        public ICommand ClearCommand { get; }
-
-
-        private async Task SearchAirportAsync()
-        {
-            if (string.IsNullOrWhiteSpace(SearchText))
-            {
-                Console.WriteLine("Por favor, ingresa un país válido.");
-                return;
+                Aeropuertos.Add(aeropuerto);
             }
 
-            try
-            {
-                var aeropuerto = await _aeropuertoService.SearchAirportAsync(SearchText);
-                if (aeropuerto != null)
-                {
-                    FoundAirport = aeropuerto;
-                    Console.WriteLine("Aeropuerto encontrado exitosamente.");
-                }
-                else
-                {
-                    Console.WriteLine("No se encontró ningún aeropuerto para el país ingresado.");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al buscar el aeropuerto: {ex.Message}");
-            }
+            var newAeropuerto = await _apiService.GetAeropuertoFromApiAsync(country);
+            await _databaseService.SaveAeropuertoAsync(newAeropuerto);
+            Aeropuertos.Add(newAeropuerto);
         }
 
 
-        private void ClearSearch()
-        {
-            SearchText = string.Empty;
-            FoundAirport = null;
-        }
-
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }
+
 
 
 
