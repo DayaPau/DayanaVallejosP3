@@ -1,59 +1,56 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:DayanaVallejosP3.ViewsModels"
-             x:Class="DayanaVallejosP3.Views.AeropuertoBuscador"
-             BackgroundColor="#F8F8F8"
-             Padding="20">
+<?xml version='1.0' encoding='utf-8' ?>
+<ContentPage xmlns='http://schemas.microsoft.com/dotnet/2021/maui'
+             xmlns:x='http://schemas.microsoft.com/winfx/2009/xaml'
+             xmlns:vm='clr-namespace:DayanaVallejosP3.ViewsModels'
+             x:Class='DayanaVallejosP3.Views.AeropuertoBuscador'
+             BackgroundColor='#F8F8F8'
+             Padding='20'>
 
     <ContentPage.BindingContext>
         <vm:BusquedaViewModel />
     </ContentPage.BindingContext>
 
-    <VerticalStackLayout Spacing="15">
+    <VerticalStackLayout Spacing='15'>
+        <Label x:Name='dvallejos_labelTitle'
+               Text='Buscar Aeropuerto'
+               FontSize='24'
+               FontAttributes='Bold'
+               HorizontalOptions='Center'
+               TextColor='#333333'
+               Margin='0,0,0,20'/>
 
-        <Label x:Name="dvallejos_labelTitle"
-               Text="Buscar Aeropuerto"
-               FontSize="24"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"
-               TextColor="#333333"
-               Margin="0,0,0,20"/>
+        <Entry x:Name='dvallejos_entrySearch'
+               Placeholder='Ingrese nombre de aeropuerto'
+               Text='{Binding SearchText}'
+               FontSize='16'
+               BackgroundColor='Gray'/>
 
-        <Entry x:Name="dvallejos_entrySearch"
-               Placeholder="Ingrese país"
-               Text="{Binding SearchText}"
-               FontSize="16"
-               BackgroundColor="Gray"/>
+        <Button x:Name='dvallejos_buttonSearch'
+                Text='Buscar'
+                Command='{Binding SearchAeropuertoCommand}'
+                BackgroundColor='#1E90FF'
+                TextColor='White'
+                CornerRadius='5'
+                Padding='10'
+                FontSize='16'
+                HorizontalOptions='FillAndExpand'
+                Margin='0,10'/>
 
-        <Button x:Name="dvallejos_buttonSearch"
-                Text="Buscar"
-                Command="{Binding SearchCommand}"
-                BackgroundColor="#1E90FF"
-                TextColor="White"
-                CornerRadius="5"
-                Padding="10"
-                FontSize="16"
-                HorizontalOptions="FillAndExpand"
-                Margin="0,10"/>
+        <Button x:Name='dvallejos_buttonClear'
+                Text='Limpiar'
+                Command='{Binding ClearSearchCommand}'
+                BackgroundColor='#FF6347'
+                TextColor='White'
+                CornerRadius='5'
+                Padding='10'
+                FontSize='16'
+                HorizontalOptions='FillAndExpand'/>
 
-        <Button x:Name="dvallejos_buttonClear"
-                Text="Limpiar"
-                Command="{Binding ClearCommand}"
-                BackgroundColor="#FF6347"
-                TextColor="White"
-                CornerRadius="5"
-                Padding="10"
-                FontSize="16"
-                HorizontalOptions="FillAndExpand"/>
-
-        <Label x:Name="dvallejos_labelMessage"
-               Text="{Binding Message}"
-               TextColor="Red"
-               FontSize="16"
-               HorizontalOptions="Center"
-               IsVisible="{Binding IsMessageVisible}" />
-
+        <Label x:Name='dvallejos_labelMessage'
+               Text='{Binding Message}'
+               TextColor='Red'
+               FontSize='16'
+               HorizontalOptions='Center'
+               IsVisible='{Binding IsMessageVisible}' />
     </VerticalStackLayout>
 </ContentPage>
-
