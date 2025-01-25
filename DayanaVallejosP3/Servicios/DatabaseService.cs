@@ -1,52 +1,33 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using SQLite;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
-using SQLite;
 using DayanaVallejosP3.Models;
 
 namespace DayanaVallejosP3.Servicios
 {
-    public class DatabaseService
+    public class DatabaseService : IDatabaseService
     {
-        private readonly SQLiteAsyncConnection _database;
+        private SQLiteAsyncConnection _database;
 
         public DatabaseService()
         {
-            // Configura la base de datos SQLite.
-            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "Aeropuertos.db");
-            _database = new SQLiteAsyncConnection(dbPath);
-
-            // Crea la tabla de Aeropuertos si no existe.
+            var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "aeropuertos.db3");
+            _database = new SQLiteAsyncConnection(databasePath);
             _database.CreateTableAsync<Aeropuerto>().Wait();
         }
 
-        
-        public async Task SaveAirportAsync(Aeropuerto aeropuerto)
+        public Task SaveAeropuertoAsync(Aeropuerto aeropuerto)
         {
-            if (aeropuerto != null)
-            {
-                await _database.InsertAsync(aeropuerto);
-            }
+            return _database.InsertAsync(aeropuerto);
         }
 
-        
-        public async Task<List<Aeropuerto>> GetAirportsAsync()
+        public Task<List<Aeropuerto>> GetAeropuertosAsync()
         {
-            return await _database.Table<Aeropuerto>().ToListAsync();
-        }
-
-      
-        public async Task DeleteAirportAsync(Aeropuerto aeropuerto)
-        {
-            if (aeropuerto != null)
-            {
-                await _database.DeleteAsync(aeropuerto);
-            }
-        }
-
-        public async Task ClearAirportsAsync()
-        {
-            await _database.DeleteAllAsync<Aeropuerto>();
+            return _database.Table<Aeropuerto>().ToListAsync();
         }
     }
+
+
 }
+
