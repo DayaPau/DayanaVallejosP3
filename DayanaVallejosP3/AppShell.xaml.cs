@@ -1,17 +1,22 @@
 ﻿using DayanaVallejosP3.Views;
 using DayanaVallejosP3.ViewsModels;
 
-namespace DayanaVallejosP3;
-
-public partial class AppShell : Shell
+namespace DayanaVallejosP3
 {
-    public AppShell()
+    public partial class AppShell : Shell
     {
-        InitializeComponent();
+        public AppShell(AeropuertoBuscador searchPage)
+        {
+            InitializeComponent();
 
-        // Registrar rutas para navegación programática
-        Routing.RegisterRoute(nameof(BusquedaViewModel), typeof(BusquedaViewModel));
-        Routing.RegisterRoute(nameof(ListadoViewModel), typeof(ListadoViewModel));
+
+            Items.Add(new ShellContent
+            {
+                Title = "Buscar",
+                Content = searchPage
+            });
+        }
+
     }
 }
 

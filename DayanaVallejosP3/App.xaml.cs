@@ -1,12 +1,13 @@
-﻿namespace DayanaVallejosP3;
+﻿using DayanaVallejosP3.Views;
+
+namespace DayanaVallejosP3;
 
 public partial class App : Application
 {
-    public App()
+    public App(AeropuertoBuscador searchPage)
     {
         InitializeComponent();
-
-        MainPage = new AppShell(); // Asignar AppShell como la página principal
+        MainPage = new AppShell(searchPage);
     }
 }
 
